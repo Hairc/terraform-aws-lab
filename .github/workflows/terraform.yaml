@@ -1,0 +1,28 @@
+name: "Terraform Control"
+
+#Specify when to start this automation: Every time there is a push on main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform-ci:
+    name: "Verify code"
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: "1. download repo code"
+        uses: actions/checkout@v4
+
+      - name: "2. Install terraform on github server"
+        uses: hashicorp/setup-terraform@v3
+
+      - name: "3. Initialize terraform"
+        run: terraform init -backend=false
+
+      - name: "4. format check"
+        run: terraform fmt -check
+
+      - name: "5. Syntax validation"
+        run: terraform validate
