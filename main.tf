@@ -1,3 +1,11 @@
+terraform {
+  backend "s3" {
+    bucket = "bucket-lab-pietro-rusconi"
+    key    = "prod/terraform.tfstate"
+    region = "eu-north-1"
+  }
+}
+
 provider "aws" {
   region = var.aws_region
 }
