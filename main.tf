@@ -138,7 +138,7 @@ resource "aws_instance" "my_server" {
               </head>
               <body>
                   <h1>Automated cloud infrastracture</h1>
-                  <h3>Designed and released by da Pietro Rusconi</h3>
+                  <h3>Designed and released by Pietro Rusconi</h3>
                   <p>This Ubuntu server and container Nginx are generated entirely with terraform</p>
               </body>
               </html>
