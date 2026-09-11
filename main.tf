@@ -10,6 +10,7 @@ provider "aws" {
   region = var.aws_region
 }
 
+# tfsec:ignore:aws-ec2-require-vpc-flow-logs-for-all-vpcs Exception: don't need flow logs for this project
 resource "aws_vpc" "my_vpc" {
   cidr_block = "10.0.0.0/16" #cidr notation 32-16=16 available bits for hosts (2^16 IPs)
 
@@ -24,6 +25,7 @@ resource "aws_internet_gateway" "my_igw" {
 }
 
 #Public subnet
+#tfsec:ignore:aws-ec2-no-public-ip-subnet Exception: Single subnet architecture for public webserver
 resource "aws_subnet" "my_subnet" {
   vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = "10.0.1.0/24"
@@ -54,23 +56,27 @@ resource "aws_security_group" "my_sg" {
   #Entry rule for SSH
   #tfsec:ignore:aws-vpc-no-public-ingress-sgr Exception: Left open to safeguard self privacy of personal IP on Github
   ingress {
+    description = "SSH Access is open to the internet cause i don't want to leak my ip"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] #WARNING: in a real enviroment limit this to own IP/32
-    #
   }
 
   #Entry rule for HTTP
+  #tfsec:ignore:aws-ec2-no-public-ingress-sgr Exception: Webserver has to receive global traffic to see lab results
   ingress {
+    description = "HTTP Access is public"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  #Exit Rule (everything open)
+  #Exit Rule
+  #tfsec:ignore:aws-ec2-no-public-egress-sgr Exception: Intance need internet to download docker on launch
   egress {
+    description = "everything is open on exit"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -99,6 +105,14 @@ resource "aws_instance" "my_server" {
 
   tags = {
     Name = "Server-Lab"
+  }
+
+  metadata_options {
+    http_tokens = "required" #Force IMDSv2 
+  }
+
+  root_block_device {
+    encrypted = true #Encrypts th disk
   }
 
   #Intall and start docker during the first server launch
