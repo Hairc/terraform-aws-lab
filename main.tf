@@ -133,12 +133,12 @@ resource "aws_instance" "my_server" {
                   <title>Portfolio Pietro</title>
                   <style>
                       body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #282c34; color: white; }
-                      h1 { color: #00a6d4; }
+                      h1 { color: #26748a; }
                   </style>
               </head>
               <body>
                   <h1>Automated cloud infrastracture</h1>
-                  <h3>Designed and released by da Pietro Rusconi (Hairc)</h3>
+                  <h3>Designed and released by da Pietro Rusconi</h3>
                   <p>This Ubuntu server and container Nginx are generated entirely with terraform</p>
               </body>
               </html>
