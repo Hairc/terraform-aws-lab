@@ -26,3 +26,6 @@ jobs:
 
       - name: "5. Syntax validation"
         run: terraform validate
+
+      - name: "6. Security check (tfsec)"
+        uses: acquasecurity/tfsec-action@v1.0.3

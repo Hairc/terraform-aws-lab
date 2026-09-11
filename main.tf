@@ -52,11 +52,13 @@ resource "aws_security_group" "my_sg" {
   vpc_id      = aws_vpc.my_vpc.id
 
   #Entry rule for SSH
+  #tfsec:ignore:aws-vpc-no-public-ingress-sgr Exception: Left open to safeguard self privacy of personal IP on Github
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] #WARNING: in a real enviroment limit this to own IP/32
+    #
   }
 
   #Entry rule for HTTP
