@@ -118,10 +118,33 @@ resource "aws_instance" "my_server" {
   #Intall and start docker during the first server launch
   user_data = <<-EOF
               #!/bin/bash
+              #Update and install docker
               apt-get update -y
               apt-get install docker.io -y
               systemctl start docker
               systemctl enable docker
-              docker run -d -p 80:80 nginx
+
+              #Create directory for the website and an html file
+              mkdir -p /var/www/html
+              cat << 'HTML' > /var/www/html/index.html
+              <!DOCTYPE html>
+              <html>
+              <head>
+                  <title>Portfolio Pietro</title>
+                  <style>
+                      body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #282c34; color: white; }
+                      h1 { color: #00a6d4; }
+                  </style>
+              </head>
+              <body>
+                  <h1>Automated cloud infrastracture</h1>
+                  <h3>Designed and released by da Pietro Rusconi (Hairc)</h3>
+                  <p>This Ubuntu server and container Nginx are generated entirely with terraform</p>
+              </body>
+              </html>
+              HTML
+
+              #Launch nginx using directory as website (-v volume)
+              docker run -d -p 80:80 -v /var/www/html:/usr/share/nginx/html nginx
               EOF
 }
