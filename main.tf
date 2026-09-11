@@ -56,7 +56,7 @@ resource "aws_security_group" "my_sg" {
   #Entry rule for SSH
   #tfsec:ignore:aws-vpc-no-public-ingress-sgr Exception: Left open to safeguard self privacy of personal IP on Github
   ingress {
-    description = "SSH Access is open to the internet cause i don't want to leak my ip"
+    description = "SSH Access is open to the internet"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
