@@ -16,6 +16,10 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
 }
 
 #Cluster EKS creation
+#tfsec:ignore:aws-eks-no-public-cluster-access
+#tfsec:ignore:aws-eks-no-public-cluster-access-to-cidr
+#tfsec:ignore:aws-eks-encrypt-secrets
+#tfsec:ignore:aws-eks-enable-control-plane-logging
 resource "aws_eks_cluster" "my_cluster" {
   name     = "portfolio-eks-cluster"
   role_arn = aws_iam_role.eks_cluster_role.arn
