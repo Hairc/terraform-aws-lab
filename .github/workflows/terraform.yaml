@@ -5,6 +5,12 @@ on:
   push:
     branches:
       - main
+    #Ignore commits to these files/directories
+    paths-ignore:
+      - 'README.md'
+      - '*.png'
+      - '*.jpg'
+      - '.gitignore'
 
 jobs:
   terraform-ci:
