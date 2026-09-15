@@ -17,7 +17,7 @@ Automated provisioning of a highly available Cloud infrastructure on AWS, based 
 
 ## Load Balancing Demonstration
 
-img here
+<img width="1851" height="1007" alt="WebSites working" src="https://github.com/user-attachments/assets/64b7d318-91a2-4e19-954c-a808e677216d" />
 
 > **Architectural Note:** The image above demonstrates the correct traffic routing by the AWS Elastic Load Balancer to distinct Nginx Pods, which are distributed across the Worker Nodes created by the Auto Scaling Group.
 
