@@ -33,5 +33,6 @@ Automated provisioning of a highly available Cloud infrastructure on AWS, based 
     kubectl apply -f app.yaml
     kubectl get svc nginx-service
 4. Once Testing is complete, destroy the resources
+    ```bash
     kubectl delete -f app.yaml
     terraform destroy
